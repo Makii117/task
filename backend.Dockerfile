@@ -13,7 +13,7 @@ COPY --from=maven /data/basic-microservices/spring-boot-app/target/spring-boot-a
 COPY --from=maven /data/basic-microservices/spring-boot-app/src/main/resources/application.yml /app/
 
 
-ENV PORT=8080 
+ENV PORT=8080
    
 EXPOSE 8080
 
