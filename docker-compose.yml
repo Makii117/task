@@ -6,28 +6,24 @@ services:
     ports: 
       - "8081:8081"
 
+  db:
+    image: postgres:10-alpine
+    restart: always
+    ports: 
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: demouser
+      POSTGRES_PASSWORD: DemoPa$$
+      POSTGRES_DB: demodb
+    
   backend:
     build: 
       context: .
       dockerfile: backend.Dockerfile
     ports: 
-      - "8080"
+      - "8080:8080"
     depends_on:
       - db
-
-  db:
-    image: postgres
-    restart: always
-    container_name: db
     environment:
-      POSTGRES_USER: demouser
-      POSTGRES_PASSWORD: DemoPa$$
-      POSTGRES_DATABASE: demodb
-    ports: 
-      - '5432:5432'
-    healthcheck:
-      #CHANGE 1: this command checks if the database is ready, right on the source db server
-      test: [ "CMD-SHELL", "pg_isready" ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/demodb
+    - SPRING_DATASOURCE_PASSWORD=DemoPa$$

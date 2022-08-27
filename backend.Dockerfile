@@ -17,4 +17,4 @@ ENV PORT=8080
    
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","spring-boot-app-1.0-SNAPSHOT.jar","--spring.config.location=application.yml"]
+ENTRYPOINT ["java","-jar","spring-boot-app-1.0-SNAPSHOT.jar","--spring.config.location=file:application.yml"]
