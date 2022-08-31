@@ -13,6 +13,8 @@ COPY --from=maven /data/basic-microservices/spring-boot-app/src/main/resources/a
 
 RUN sed -i 's+jdbc:postgresql://localhost:5432/demodb+jdbc:postgresql://db:5432/demodb+g' application.yml
 
+RUN sed -i 's+http://localhost:8081/+http://frontend:8081/+g' application.yml
+
 ENV PORT=8080
 
 EXPOSE 8080
