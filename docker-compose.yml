@@ -1,11 +1,4 @@
 services:
-  frontend:
-    build: 
-      context: .
-      dockerfile: frontend.Dockerfile
-    ports: 
-      - "8081:8081"
-
   db:
     image: postgres:10-alpine
     restart: always
@@ -13,9 +6,17 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_USER: demouser
-      POSTGRES_PASSWORD: DemoPa$$
+      POSTGRES_PASSWORD: DemoPa$$$$
       POSTGRES_DB: demodb
     
+    
+
+  frontend:
+    build: 
+      context: .
+      dockerfile: frontend.Dockerfile
+    ports: 
+      - "8081:8081"  
   backend:
     build: 
       context: .
@@ -24,6 +25,5 @@ services:
       - "8080:8080"
     depends_on:
       - db
-    environment:
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/demodb
-    - SPRING_DATASOURCE_PASSWORD=DemoPa$$
+    links:
+      - "db:localhost"
